@@ -1,4 +1,4 @@
-unction setInformationRows() {
+/* function setInformationRows() {
 
   let last_row = SpreadsheetApp.getActiveSheet().getRange("L2:L").getValues()
   
@@ -61,13 +61,13 @@ unction setInformationRows() {
     }
     
   }
-}
+} */
 
 
 
 
 
-function insertRows(numbers){
+/* function insertRows(numbers){
 
   let column = "L"
   let sheet = SpreadsheetApp.getActiveSheet()
@@ -97,7 +97,7 @@ function insertRows(numbers){
 
   }
 
-}
+} */
 
 
 function copyInformationRows(){
@@ -113,7 +113,7 @@ function copyInformationRows(){
   let filaLimitAdjusted = 0;
 
 
-      for(let i = 0; i <= insertRange.length; i++){
+      for(let i = 0; i < insertRange.length; i++){
        
         filaLimit = insertRange[insertRange.length - i - 1]
       
@@ -121,24 +121,23 @@ function copyInformationRows(){
           getValues = sheet.getRange('A' + insertFila + ':K' + insertFila).getValues(); 
           insertFila += filaLimit
           Logger.log(insertFila +  " - " +  filaLimit) 
-            Logger.log(getValues)  
+            //Logger.log(getValues)  
             if(filaLimit > 1){
-              insertValues = sheet.getRange(insertFila,column,filaLimit,11).setValues(getValues)
+              //insertValues = sheet.getRange(insertFila,column,filaLimit,11).setValues(getValues)
             }
           
           sumValues = insertFila + filaLimit
 
         }else {
           filaLimitAdjusted  = filaLimit - 1
-           Logger.log(sumValues + 1  + " - " +  filaLimitAdjusted ) 
-          getValues = sheet.getRange('A' + sumValues + ':K' + sumValues).getValues(); 
-
+           Logger.log(sumValues + " - " +  filaLimitAdjusted ) 
               if(filaLimit > 1){
+                getValues = sheet.getRange('A' + sumValues + ':K' + sumValues).getValues(); 
                 let valuesRepeated = []
                 for (let j = 1; j <= filaLimitAdjusted;j++){
                   valuesRepeated.push(getValues[0]);
                 }
-                Logger.log(valuesRepeated)
+                Logger.log(valuesRepeated.length)
                 insertValues = sheet.getRange(sumValues + 1 ,column,filaLimitAdjusted,11).activate().setValues(valuesRepeated)
             }
          
@@ -173,45 +172,4 @@ function getRangeLength(){
 return listLength;
 
 }
-
-
-
-
-
-
-function insertRows(numbers){
-
-  let column = "A"
-  let sheet = SpreadsheetApp.getActiveSheet()
-  let maxRows = sheet.getMaxRows()
-
-  let values_len = sheet.getRange(column + "1:" + column + maxRows).getValues()
-  for(;values_len[maxRows -1] == "" && maxRows > 0; maxRows--){
-    }
-  Logger.log(maxRows)
-
-  let maxValue = maxRows
-
-  let counter = 0
-  let index = 0;
-  while((maxValue - counter) >= 4 ){
-    if( counter == 0 ){
-    let insertRow = sheet.getRange(column + "4:"+column+(maxValue - counter))
-    let activeRow = insertRow.activate()
-     sheet.insertRowsAfter(activeRow.getLastRow(),numbers[index])
-    }else if(counter >= 1 && counter <= 3){
-      ++index
-      let insertRow = sheet.getRange(column + "4:"+column+(maxValue - counter))
-      let activeRow = insertRow.activate()
-      sheet.insertRowsAfter(activeRow.getLastRow(),numbers[index])
-
-    }
-       counter++
-
-  }
-
-
-  
-}
-
 
